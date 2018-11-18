@@ -28,8 +28,6 @@ $user_avatar = 'img/user.jpg';
         <a class="main-header__add-lot button" href="pages/add-lot.html">Добавить лот</a>
 
         <nav class="user-menu">
-
-        <?php $is_auth = rand(0,1);?>
         <?php if ($is_auth): ?>
             <div class="user-menu__image">
                 <img src="img/user.jpg" width="40" height="40" alt="Пользователь">
@@ -47,7 +45,6 @@ $user_avatar = 'img/user.jpg';
                 </li>
             </ul>
         <?php endif; ?>
-
         </nav>
    </div>
 </header>
