@@ -2,6 +2,7 @@
 $is_auth = rand(0, 1);
 $user_name = 'Marya';
 $user_avatar = 'img/user.jpg';
+
 $categories = ["Доски и лыжи", "Крепления", "Ботинки", "Одежда", "Инструменты", "Разное"];
 $ads = [
     [ 
@@ -42,16 +43,13 @@ $ads = [
     ]
 ] ;
 
-function price_lot($price_max){
-    $lot = ceil($price_max);
-    if ($lot > 1000) {
-      $lot_max = number_format($price_max, 0, ',', ' ');
+function format_sum($sum){
+    $sum = ceil($sum);
+    if ($sum > 1000) {
+      $sum = number_format($sum, 0, ' ', ' ');
     }
-
-    $price_max = $lot_max;
-    $price_max .= " p" ;
-
-    return ($price_max);
+    $sum .= "<b class=\"rub\">₽</b>";
+    return $sum;
 }
 
 ?>
@@ -128,7 +126,7 @@ function price_lot($price_max){
                     <div class="lot__state">
                         <div class="lot__rate">
                             <span class="lot__amount">Стартовая цена</span>
-                            <span class="lot__cost"><?= price_lot($val["price"]) ?><b class="rub">р</b></span>
+                            <span class="lot__cost"><?= format_sum($val["price"]) ?></span>
                         </div>
                         <div class="lot__timer timer">
                             12:23
