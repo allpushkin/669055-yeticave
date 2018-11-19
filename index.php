@@ -9,37 +9,37 @@ $ads = [
         'title' =>'2014 Rossignol District Snowboard',
         'category' => 'Доски и лыжи',
         'price' => '10999',
-        'Image URL' => 'img/lot-1.jpg'
+        'img_url' => 'img/lot-1.jpg'
     ],
     [ 
         'title' => 'DC Ply Mens 2016/2017 Snowboard',
         'category' => 'Доски и лыжи',
         'price' => '159999',
-        'Image URL' => 'img/lot-2.jpg'
+        'img_url' => 'img/lot-2.jpg'
     ],
     [ 
         'title' => 'Крепления Union Contact Pro 2015 года размер L/XL',
         'category' => 'Крепления',
         'price' => '8000',
-        'Image URL' => 'img/lot-3.jpg'
+        'img_url' => 'img/lot-3.jpg'
     ],
     [ 
         'title' => 'Крепления Union Contact Pro 2015 года размер L/XL',
         'category' => 'Крепления',
         'price' => '8000',
-        'Image URL' => 'img/lot-3.jpg'
+        'img_url' => 'img/lot-3.jpg'
     ],
     [ 
         'title' => 'Куртка для сноуборда DC Mutiny Charocal',
         'category' => 'Одежда',
         'price' => '7500',
-        'Image URL' => 'img/lot-5.jpg'
+        'img_url' => 'img/lot-5.jpg'
     ],
     [ 
         'title' => 'Маска Oakley Canopy',
         'category' => 'Разное',
         'price' => '5400',
-        'Image URL' => 'img/lot-6.jpg'
+        'img_url' => 'img/lot-6.jpg'
     ]
 ] ;
 ?>
@@ -108,7 +108,7 @@ $ads = [
             <?php foreach ( $ads  as $key => $val): ?>
             <li class="lots__item lot">
                 <div class="lot__image">
-                    <img src="<?= $val['img/lot-1.jpg'] ?>" width="350" height="260" alt="">
+                    <img src="<?= $val['img_url'] ?>" width="350" height="260" alt="">
                 </div>
                 <div class="lot__info">
                     <span class="lot__category"><?= $val['category']?></span>
@@ -135,7 +135,7 @@ $ads = [
         <ul class="nav__list container">
             <?php foreach ($categories as  $value): ?>
             <li class="nav__item">
-                <a href="pages/all-lots.html"></a><?= $value ?></a>
+                <a href="pages/all-lots.html"><?= $value ?></a>
             </li>
             <?php endforeach; ?>
         </ul>
