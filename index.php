@@ -3,6 +3,7 @@ $is_auth = rand(0, 1);
 
 $user_name = 'Marya';
 $user_avatar = 'img/user.jpg';
+
 $categories = ["Доски и лыжи", "Крепления", "Ботинки", "Одежда", "Инструменты", "Разное"];
 $ads = [
     [ 
@@ -72,7 +73,7 @@ $ads = [
                 <img src="img/user.jpg" width="40" height="40" alt="Пользователь">
             </div>
             <div class="user-menu__logged">
-                <p><?= $user_name; ?></p>
+              <p><?= $user_name; ?></p>
             </div>
         <?php else:?>
             <ul class="user-menu__list">
