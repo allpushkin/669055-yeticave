@@ -36,4 +36,3 @@
             <?php endforeach; ?>
         </ul>
     </section>
-    
