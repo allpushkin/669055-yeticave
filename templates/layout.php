@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title><= $title; ?></title>
+    <title><?= $title; ?></title>
     <link href="css/normalize.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>
@@ -43,16 +43,16 @@
    </div>
 </header>
 
-<main class="container"> <?= $content; ?></main>
+<main class="container"><?= $content; ?></main>
 </div>
 
 <footer class="main-footer">
     <nav class="nav">
         <ul class="nav__list container">
             <?php foreach ($categories as  $value): ?>
-            <li class="nav__item">
-                <a href="pages/all-lots.html"><?= $value ?></a>
-            </li>
+                <li class="nav__item">
+                    <a href="pages/all-lots.html"><?= $value ?></a>
+                </li>
             <?php endforeach; ?>
         </ul>
     </nav>

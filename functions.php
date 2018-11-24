@@ -15,4 +15,19 @@
 
     return $result;
 }
+
+  function format_sum($sum){
+    $sum = ceil($sum);
+    if ($sum >= 1000) {
+        $sum = number_format($sum, 0, ' ', ' ');
+    }
+    $sum .= "<b class=\"rub\">₽</b>";
+
+    return $sum;
+    }
+    
+function xss ($arg){
+    $text = strip_tags($arg);
+    return $text;
+}
 ?>

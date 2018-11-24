@@ -1,13 +1,12 @@
 <?php
-require('functions.php');
-
+require("functions.php");
 $is_auth = rand(0, 1);
-$user_name = 'Marya';
-$user_avatar = 'img/user.jpg';
+$user_name = "Marya";
+$user_avatar = "img/user.jpg";
 $categories = ["Доски и лыжи", "Крепления", "Ботинки", "Одежда", "Инструменты", "Разное"];
 $ads = [
     [ 
-        "title" =>"2014 Rossignol District Snowboard",
+        "title" => "2014 Rossignol District Snowboard",
         "category" => "Доски и лыжи",
         "price" => "10999",
         "img_url" => "img/lot-1.jpg"
@@ -44,22 +43,20 @@ $ads = [
     ]
 ] ;
 
-function format_sum($sum){
-    $sum = ceil($sum);
-    if ($sum >= 1000) {
-      $sum = number_format($sum, 0, ' ', ' ');
-    }
-    $sum .= "<b class=\"rub\">₽</b>";
-    return $sum;
-}
+$page_content = include_template('index.php', [
+    "ads" => $ads,
+    "categories" => $categories]);
 
-
-$page_content = include_template('index.php', ['ads' => $ads, 'categories' => $categories]);
 $layout_content = include_template('layout.php', [
-	'title' => 'Yeticave - Главная', 
-	'is_auth' => $is_auth, 
-	'user_name' => $user_name,
-	'content' => $page_content, 
-	'categories' => $categories]);
+    "title" => 'Yeticave - Главная',
+    "is_auth" => $is_auth,
+    "user_name" => $user_name,
+    "content" => $page_content,
+    "categories" => $categories]);
 print($layout_content);
+
+function xss ($arg){
+    $text = strip_tags($arg);
+    return $text;
+}
 ?>
