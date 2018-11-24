@@ -1,5 +1,5 @@
  <?php
-  function include_template($name, $data) {
+function include_template($name, $data) {
     $name = 'templates/' . $name;
     $result = '';
 
@@ -16,7 +16,7 @@
     return $result;
 }
 
-  function format_sum($sum){
+function format_sum($sum){
     $sum = ceil($sum);
     if ($sum >= 1000) {
         $sum = number_format($sum, 0, ' ', ' ');
@@ -26,8 +26,7 @@
     return $sum;
     }
 
-function xss ($arg){
-    $text = strip_tags($arg);
-    return $text;
+function esc ($arg){
+    return htmlspecialchars($arg);
 }
 ?>
