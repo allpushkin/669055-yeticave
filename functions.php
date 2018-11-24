@@ -25,7 +25,7 @@
 
     return $sum;
     }
-    
+
 function xss ($arg){
     $text = strip_tags($arg);
     return $text;
