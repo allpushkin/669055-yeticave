@@ -55,8 +55,4 @@ $layout_content = include_template('layout.php', [
     "categories" => $categories]);
 print($layout_content);
 
-function xss ($arg){
-    $text = strip_tags($arg);
-    return $text;
-}
 ?>
