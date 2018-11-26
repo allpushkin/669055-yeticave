@@ -29,4 +29,20 @@ function format_sum($sum){
 function esc ($arg){
     return htmlspecialchars($arg);
 }
+
+
+function lot_left() { 
+    $time = strtotime('tomorrow') - time(); 
+    $hours = floor($time / 3600); 
+    $minutes = floor(($time % 3600) / 60); 
+    if ($minutes < 10) { 
+       $minutes = (0 . $minutes); 
+    } 
+    if  ($hours < 10) { 
+       $hours = (0 . $hours); 
+    } 
+    $time_left = ($hours . ':' . $minutes); 
+    return $time_left; 
+} 
+
 ?>
