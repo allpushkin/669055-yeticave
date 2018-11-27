@@ -45,7 +45,6 @@ $ads = [
 
 $page_content = include_template('index.php', [
     "ads" => $ads,
-    "time_left" => $time_left,
     "categories" => $categories]);
 
 $layout_content = include_template('layout.php', [
