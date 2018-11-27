@@ -31,18 +31,12 @@ function esc ($arg){
 }
 
 
-function lot_left() { 
-    $time = strtotime('tomorrow') - time(); 
-    $hours = floor($time / 3600); 
-    $minutes = floor(($time % 3600) / 60); 
-    if ($minutes < 10) { 
-       $minutes = (0 . $minutes); 
-    } 
-    if  ($hours < 10) { 
-       $hours = (0 . $hours); 
-    } 
-    $time_left = ($hours . ':' . $minutes); 
-    return $time_left; 
+function lot_time_left() { 
+    $now = date_create("now");
+    $tomorrow = date_create("tomorrow");
+
+    $diff = date_diff($now, $tomorrow);
+    return date_interval_format($diff,"%H:%I");
 } 
 
 ?>
