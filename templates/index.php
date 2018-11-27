@@ -28,7 +28,7 @@
                                 <span class="lot__cost"><?= format_sum(esc($val["price"])) ?></span>
                             </div>
                             <div class="lot__timer timer">
-                                <?= lot_left($time_left); ?>
+                                <?= lot_time_left(); ?>
                             </div>
                         </div>
                     </div>
