@@ -1,4 +1,4 @@
-CREATE TABLE `stavka` 
+CREATE TABLE `bets` 
 ( 
 	`dt_add` 		timestamp default current_timestamp NOT NULL, 
 	`id`				int(11) unsigned NOT NULL AUTO_INCREMENT, 
@@ -23,7 +23,7 @@ CREATE TABLE `users`
 	UNIQUE KEY (`email`) 
 );
 
-CREATE TABLE `lot` 
+CREATE TABLE `lots` 
 ( 
 	`id`				 	int(11) unsigned NOT NULL AUTO_INCREMENT, 
 	`category_id`	 	int(11) unsigned NOT NULL, 
