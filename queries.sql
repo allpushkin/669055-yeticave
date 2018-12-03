@@ -7,7 +7,7 @@ VALUES ('Доски и лыжи'), ('Крепления'), ('Ботинки'), (
 INSERT INTO users (`dt_add`, `email`, `name`, `password`, `avatar_path`, `contact`,`lot_id`,`bet_id`)
 VALUES ('2018-11-27 11:00:00', 'Bulavka@gmail.com', 'Дарья', '123qazwsx', 'img/avatar.jpg', 'т. +7(977)776-97-12, г. Москва', '0', '0'),
 ('2018-11-28 12:13:16', 'vivaldi@mail.ru', 'Кира', '123456789q', 'img/avatar.jpg', '0', '1', '2'),
-('2018-11-27 21:25:00', 'Nikita@gmail.com', 'Nikita', '0', '1z2x3c2v', 'город Москва', '3', '1' );*/
+('2018-11-27 21:25:00', 'Nikita@gmail.com', 'Nikita', '0', '1z2x3c2v', 'город Москва', '3', '1' );
 
 
 /*Заполнение таблицы лотов*/
@@ -38,8 +38,10 @@ ON l.category_id = c.id
 WHERE winner_id = 0
 ORDER BY l.dt_add DESC ;
 
+
 /*Показать лот по его id, получить название категории, к которой принадлежит лот*/
-SELECT l.id, l.title, name FROM lots l
+SELECT l.id, l.title, c.name as сategory
+FROM lots l
 INNER JOIN categories c
 ON l.category_id = c.id
 WHERE l.id = '3';
@@ -48,10 +50,10 @@ WHERE l.id = '3';
 UPDATE lots SET `title` = 'Абсолютно новое крепления Union Contact Pro 2015 года размер L/XL '
 WHERE id = '3'; 
 
-/*Получить список самых свежих ставок для лота по его идентификатору
+/*Получить список самых свежих ставок для лота по его идентификатору*/
 SELECT b.id, title, b.dt_add, price FROM bets b
 LEFT JOIN lots l
 ON b.lot_id = l.id
 WHERE lot_id = '1'
-ORDER BY `dt_add` DESC;*/
+ORDER BY `dt_add` DESC;
 
