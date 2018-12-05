@@ -7,15 +7,14 @@ $content = "";
 require_once "functions.php";
 require_once "init.php";
 
-if (!$content){
+if (!$content) {
     $sql = "SELECT `id`, `name` FROM categories";
     $result = mysqli_query($link, $sql);
     $categories = mysqli_fetch_all($result, MYSQLI_ASSOC );
-}else{
+}else {
     $error = mysqli_error($link);
     $content = include_template('error.php', ["error" => $error]);
 }
-
 
 $sql = "SELECT l.id, l.title, starting_price, img_path, name FROM lots l
 INNER JOIN categories c
