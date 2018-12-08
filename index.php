@@ -6,9 +6,9 @@ $is_auth = rand(0, 1);
 $user_name = "Marya";
 $user_avatar = "img/user.jpg";
 
-$categories = frtch_data($link, "SELECT `id`, `name` FROM categories");
+$categories = fetch_data($link, "SELECT `id`, `name` FROM categories");
 
-$lots = frtch_data($link,"SELECT l.id, l.title, starting_price, img_path, name FROM lots l
+$lots = fetch_data($link,"SELECT l.id, l.title, starting_price, img_path, name FROM lots l
 INNER JOIN categories c
 ON l.category_id = c.id
 ORDER BY l.dt_add DESC");
