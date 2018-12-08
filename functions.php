@@ -39,4 +39,11 @@ function lot_time_left() {
     return date_interval_format($diff,"%H:%I");
 } 
 
+function fetch_data($link, $sql) {
+    $result = mysqli_query ($link, $sql);
+
+    return mysqli_fetch_all($result, MYSQLI_ASSOC );
+}
+
+
 ?>
