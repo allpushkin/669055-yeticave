@@ -28,7 +28,6 @@ if(!isset($lot['id'])) {
     $content = include_template('404.php', ['categories' => $categories]);
 };
 
-
 $page_content = include_template('lot.php', [
     "lot" => $lots[0],
     "categories" => $categories
