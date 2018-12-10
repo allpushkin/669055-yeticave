@@ -16,7 +16,9 @@ else {
     $content = include_template('404.php', ['categories' => $categories]);
 }
 
-$lots = fetch_data_lot($link, $lot_id, "SELECT l.id, l.title, starting_price, img_path, name, description FROM lots l
+$lots = fetch_data_lot($link, $lot_id, "SELECT l.id, l.title, starting_price, img_path, description, price, name as category_name FROM lots l
+LEFT JOIN bets b
+ON l.id = b.lot_id
 INNER JOIN categories c
 ON l.category_id = c.id
 WHERE l.id = $lot_id ");
@@ -28,8 +30,8 @@ if(!isset($lot['id'])) {
 
 
 $page_content = include_template('lot.php', [
-    "lots" => $lots,
-    "categories" => "$categories"
+    "lot" => $lots[0],
+    "categories" => $categories
 ]);
 
 $layout_content = include_template('layout.php', [
