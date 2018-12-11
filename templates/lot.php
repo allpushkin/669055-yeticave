@@ -22,7 +22,8 @@
             Мин. ставка <span><?= format_sum(esc($lot["price"])) ?></span>
           </div>
         </div>
-        <form class="lot-item__form" action="https://echo.htmlacademy.ru" method="post">
+        
+         <!--<form class="lot-item__form" action="https://echo.htmlacademy.ru" method="post">
           <p class="lot-item__form-item form__item form__item--invalid">
             <label for="cost">Ваша ставка</label>
             <input id="cost" type="text" name="cost" placeholder="12 000">
@@ -88,4 +89,4 @@
       </div>
     </div>
   </div>
-</section>
+</section>-->
