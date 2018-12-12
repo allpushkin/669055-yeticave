@@ -1,4 +1,4 @@
-<?php $classname = count($errors) ? " form--invalid" : ""; ?>
+<?php $classname = isset($errors) ? " form--invalid" : ""; ?>
 <form class="form form--add-lot container <?=$classname;?> action="add.php method="post" enctype="multipart/form-data"> <!-- form--invalid -->
   <h2>Добавление лота</h2>
   <div class="form__container-two">
@@ -17,7 +17,6 @@
       <label for="category">Категория</label>
       <select id="category" name="lot[category]" required>
         <option>Выберите категорию</option>
-        <option>Доски и лыжи</option>
         <?php foreach ($categories as $category): ?>
           <option value="<?=$category['id'];?>"><?= $category['name']; ?></option>
         <?php endforeach; ?>
@@ -69,12 +68,13 @@
      <?php $classname = isset($errors['date_end']) ? 'form__item--invalid' : '';
            $error = isset($errors['date_end']) ? $errors['date_end'] : "";
            $value = isset($lot['date_end']) ? $lot['date_end'] : ""; ?>
-    <div class="form__item <?=$classname;?>">>
+    <div class="form__item <?=$classname;?>">
       <label for="lot-date">Дата окончания торгов</label>
       <input class="form__input-date" id="lot-date" type="date" name="lot['date_end']" value="<?=$value;?>">
       <span class="form__error"><?=$error;?></span>
     </div>
   </div>
+
   <span class="form__error form__error--bottom">Пожалуйста, исправьте ошибки в форме.</span>
   <button type="submit" class="button">Добавить лот</button>
 </form>
