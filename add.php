@@ -27,13 +27,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lot'])) {
             $errors[$key] = 'Это поле надо заполнить';
         }
     }
+
+     if (!is_numeric($lot['starting_price']) || $lot['starting_price'] <= 0) {
+        $errors['starting_price'] = 'В поле должно быть целое положительное число';
+    }
+    
+    if (!is_numeric($lot['bed_step']) || $lot['bed_step'] <= 0) {
+        $errors['step'] = 'В поле  должно быть целое положительное число';
+    }
+
+    if ($lot['category'] == 'Выберите категорию') {
+        $errors['category'] = 'Нужно выбрать категорию';
+    }
     
     if (isset($_FILES["lot_img"]["name"])) {
         $tmp_name  = $_FILES["lot_img"]["tmp_name"];
         $path      = $_FILES["lot_img"]["name"];
         $finfo     = finfo_open(FILEINFO_MIME_TYPE);
         $file_type = finfo_file($finfo, $tmp_name);
-        if ($file_type !== "image/jpg") {
+        if ($file_type !== "image/jpeg" && $file_type !== "image/png" && $file_type !== "image/jpg")  {
             $errors["lot_img"] = 'Загрузите картинку в формате jpg/jpeg или png';
         } else {
             move_uploaded_file($tmp_name, "img/" . $path);
@@ -44,8 +56,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lot'])) {
     }
 
     if (count($errors)) {
-        $page_content = render_template("add-lot", [
-            "lots"       => $lots,
+        $page_content = include_template("add-lot", [
+            "lots"       => $lot,
             "errors"     => $errors,
             "dict"       => $dict,
             "categories" => $categories
@@ -54,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lot'])) {
     $page_content = include_template('wiew.php', ["categories" => $categories]);
     }
 } else {
-    $page_content = include_template("add-lot", [
+    $page_content = include_template("add-lot.php", [
         "categories" => $categories,
     ]);
 }    
