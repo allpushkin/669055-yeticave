@@ -23,13 +23,13 @@
       </select>
       <span class="form__error">Выберите категорию</span>
     </div>
-    <?php $classname = isset($errors['desc']) ? 'form__item--invalid' : '';
-          $error     = isset($errors['desc']) ? $errors['desc'] : "";
-          $value     = isset($lot['desc']) ? $lot['desc'] : ""; ?>
+    <?php $classname = isset($errors['description']) ? 'form__item--invalid' : '';
+          $error     = isset($errors['description']) ? $errors['description'] : "";
+          $value     = isset($lot['description']) ? $lot['description'] : ""; ?>
   </div>
   <div class="form__item form__item--wide <?=$classname;?>">
     <label for="message">Описание</label>
-    <textarea id="message" name="lot[desc]" placeholder="Напишите описание лота" value="<?=$value;?>"></textarea>
+    <textarea id="message" name="lot[description]" placeholder="Напишите описание лота" value="<?=$value;?>"></textarea>
     <span class="form__error"><?=$error;?></span>
   </div>
    <?php $classname = isset($lot['img_path']) ? 'form__item--uploaded' : ''; ?>
@@ -52,7 +52,7 @@
     <?php $classname = isset($errors['starting_price']) ? 'form__item--invalid' : '';
           $error     = isset($errors['starting_price']) ? $errors['starting_price'] : "";
           $value     = isset($lot['starting_price']) ? $lot['starting_price'] : ""; ?>
-    <div class="form__item form__item--small">
+    <div class="form__item form__item--small <?=$classname;?>"">
       <label for="lot-rate">Начальная цена</label>
       <input id="lot-rate" type="number" name="lot[starting_price]"  placeholder="0"  value="<?=$value;?>">
       <span class="form__error"><?=$error;?></span>
