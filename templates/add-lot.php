@@ -1,5 +1,5 @@
 <?php $classname = isset($errors) ? " form--invalid" : ""; ?>
-<form class="form form--add-lot container <?=$classname;?> action="add.php method="post" enctype="multipart/form-data"> <!-- form--invalid -->
+<form class="form form--add-lot container <?=$classname;?>" action="add.php" method="post" enctype="multipart/form-data"> <!-- form--invalid -->
   <h2>Добавление лота</h2>
   <div class="form__container-two">
     <?php $classname = isset($errors['title']) ? 'form__item--invalid' : '';
@@ -29,7 +29,7 @@
   </div>
   <div class="form__item form__item--wide <?=$classname;?>">
     <label for="message">Описание</label>
-    <textarea id="message" name="lot[desc]" placeholder="Напишите описание лота" <?$value;?>></textarea>
+    <textarea id="message" name="lot[desc]" placeholder="Напишите описание лота" value="<?=$value;?>"></textarea>
     <span class="form__error"><?=$error;?></span>
   </div>
    <?php $classname = isset($lot['img_path']) ? 'form__item--uploaded' : ''; ?>
