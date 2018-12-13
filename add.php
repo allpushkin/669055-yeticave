@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lot'])) {
     }
     
     if (!is_numeric($lot['bed_step']) || $lot['bed_step'] <= 0) {
-        $errors['step'] = 'В поле  должно быть целое положительное число';
+        $errors['bed_step'] = 'В поле  должно быть целое положительное число';
     }
 
     if ($lot['category'] == 'Выберите категорию') {
@@ -56,8 +56,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lot'])) {
     }
 
     if (count($errors)) {
-        $page_content = include_template("add-lot", [
-            "lots"       => $lot,
+        $page_content = include_template("add-lot.php", [
+            "lot"       => $lot,
             "errors"     => $errors,
             "dict"       => $dict,
             "categories" => $categories
