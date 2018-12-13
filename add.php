@@ -39,20 +39,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lot'])) {
     if ($lot['category'] == 'Выберите категорию') {
         $errors['category'] = 'Нужно выбрать категорию';
     }
+
+    if (strtotime($lot['date_end']) <= strtotime('now')) {
+        $errors['date_end'] = 'Дата завершения торгов должна быть больше текущей даты хотя бы на 1 день';
+    }
     
-    if (isset($_FILES["lot_img"]["name"])) {
-        $tmp_name  = $_FILES["lot_img"]["tmp_name"];
-        $path      = $_FILES["lot_img"]["name"];
+    if (isset($_FILES["img_path"]["name"])) {
+        $tmp_name  = $_FILES["img_path"]["tmp_name"];
+        $path      = $_FILES["img_path"]["name"];
         $finfo     = finfo_open(FILEINFO_MIME_TYPE);
         $file_type = finfo_file($finfo, $tmp_name);
         if ($file_type !== "image/jpeg" && $file_type !== "image/png" && $file_type !== "image/jpg")  {
-            $errors["lot_img"] = 'Загрузите картинку в формате jpg/jpeg или png';
+            $errors["img_path"] = 'Загрузите картинку в формате jpg/jpeg или png';
         } else {
             move_uploaded_file($tmp_name, "img/" . $path);
-            $lot["lot_img"] = "img/" . $path;
+            $lot["img_path"] = "img/" . $path;
         }
     } else {
-        $errors["lot_img"] = 'Вы не загрузили файл';
+        $errors["img_path"] = 'Вы не загрузили файл';
     }
 
     if (count($errors)) {
