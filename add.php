@@ -1,19 +1,15 @@
 <?php
 require_once "functions.php";
 require_once "init.php";
-
 $is_auth     = rand(0, 1);
 $user_name   = "Marya";
 $user_avatar = "img/user.jpg";
-
 $categories   = fetch_data($link, "SELECT `id`, `name` FROM categories");
-
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lot'])) {
     $lot      = $_POST['lot'];
     $required = ["title", "description", "starting_price", "bed_step", "category", "date_end"];
     $dict     = [
-    	"title"          =>'Название',
+        "title"          =>'Название',
         "description"    => 'Описание', 
         "img_path"       => 'Изображение',
         "starting_price" =>'Начальная цена', 
@@ -44,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lot'])) {
         $errors['date_end'] = 'Дата завершения торгов должна быть больше текущей даты хотя бы на 1 день';
     }
     
-    if (isset($_FILES["img_path"]["name"])) {
+    if (isset($_FILES['img_path']['name']) && !empty($_FILES['img_path']['tmp_name'])) {
         $tmp_name  = $_FILES["img_path"]["tmp_name"];
         $path      = $_FILES["img_path"]["name"];
         $finfo     = finfo_open(FILEINFO_MIME_TYPE);
@@ -52,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lot'])) {
         if ($file_type !== "image/jpeg" && $file_type !== "image/png" && $file_type !== "image/jpg")  {
             $errors["img_path"] = 'Загрузите картинку в формате jpg/jpeg или png';
         } else {
+            
             move_uploaded_file($tmp_name, "img/" . $path);
             $lot["img_path"] = "img/" . $path;
         }
@@ -67,14 +64,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lot'])) {
             "categories" => $categories
         ]);
     } else {
-    $page_content = include_template('wiew.php', ["categories" => $categories]);
-    }
+        $user_id = 1;
+        $add = add($link, $values);
+
+
+        if ($res) {
+        $lot_id = mysqli_insert_id($link);
+        header("Location: lot.php?id=" . $lot_id);
+        die;
+      }
+    
+}
+
 } else {
     $page_content = include_template("add-lot.php", [
         "categories" => $categories,
     ]);
 }    
-
 $layout_content = include_template('layout.php', [
    "title"      => 'Yeticave - Главная',
    "is_auth"    => $is_auth,
@@ -83,5 +89,4 @@ $layout_content = include_template('layout.php', [
    "categories" => $categories
 ]);
 print($layout_content);
-
 ?>
