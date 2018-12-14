@@ -64,18 +64,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lot'])) {
             "categories" => $categories
         ]);
     } else {
-        $user_id = 1;
-        $add = add($link, $values);
+        $sql = "INSERT INTO lots (`category_id`, `user_id`, `winner_id`, `dt_add`, `title`, `img_path`, `description`,`starting_price`, `expiration_dt`,`bet_step`)
+            VALUES (?, 1, 0, NOW(), ?, ?, ?, ?, ?, ?);";
 
+        $stmt = db_get_prepare_stmt($link, $sql,[$lot['category'], $lot['title'], $lot['img_path'], $lot['description'], $lot['starting_price'], $lot['date_end'],$lot['bed_step']]);
 
+        $res = mysqli_stmt_execute($stmt);
         if ($res) {
-        $lot_id = mysqli_insert_id($link);
-        header("Location: lot.php?id=" . $lot_id);
-        die;
-      }
-    
-}
-
+            $lot_id = mysqli_insert_id($link);
+            header('Location: lot.php?id=' . $lot_id);
+            exit();
+        } else {
+            $page_content = include_template('error.php', ['error' => mysqli_error($link)]);
+        }
+    }
 } else {
     $page_content = include_template("add-lot.php", [
         "categories" => $categories,

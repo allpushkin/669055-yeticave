@@ -45,24 +45,45 @@ function fetch_data($link,$sql) {
 }
 
 
-function add ($link, $values){
-    foreach ($arr as & $value)
-        $value =mysqli_real_escape_string($link, $value);
-    return implode(",", $value);
+function add ($link, $lot){
+    foreach ($lot as & $add_lot) {
+        $add_lot =mysqli_real_escape_string($link, $add_lot);
+    }
+    return implode("', '", $lot);
 }
 
-/* $new_title          = mysqli_real_escape_string($link, $title);
-  $new_description    = mysqli_real_escape_string($link, $description);
-  $new_starting_price = mysqli_real_escape_string($link, $starting_price);
-  $new_date_end       = mysqli_real_escape_string($link, $date_end);
-  $newd_bed_step      = mysqli_real_escape_string($link, $bed_step);
-  $new_user_id        = mysqli_real_escape_string($link, $user_id);
-  
-  $sql = "INSERT INTO lots (`category_id`, `user_id`, `winner_id`, `dt_add`, `title`, `img_path`, `description`, `starting_price`, `expiration_dt`,`bet_step`)
-   VALUES ('$category', '$new_user_id', '0', 'NOW()', '$new_title', '$image', '$new_description', '$new_starting_price', '$new_date_end','$newd_bed_step')"
+function db_get_prepare_stmt($link, $sql, $data = []) {
+    $stmt = mysqli_prepare($link, $sql);
 
-  $res = mysqli_query($link, $sql);
-  return $res;
+    if ($data) {
+        $types = '';
+        $stmt_data = [];
+
+        foreach ($data as $value) {
+            $type = null;
+
+            if (is_int($value)) {
+                $type = 'i';
+            }
+            else if (is_string($value)) {
+                $type = 's';
+            }
+            else if (is_double($value)) {
+                $type = 'd';
+            }
+
+            if ($type) {
+                $types .= $type;
+                $stmt_data[] = $value;
+            }
+        }
+
+        $values = array_merge([$stmt, $types], $stmt_data);
+
+        $func = 'mysqli_stmt_bind_param';
+        $func(...$values);
+    }
+
+    return $stmt;
 }
-
 ?>
