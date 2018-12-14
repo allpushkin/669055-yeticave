@@ -4,6 +4,7 @@ require_once "init.php";
 $is_auth     = rand(0, 1);
 $user_name   = "Marya";
 $user_avatar = "img/user.jpg";
+
 $categories   = fetch_data($link, "SELECT `id`, `name` FROM categories");
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lot'])) {
     $lot      = $_POST['lot'];
