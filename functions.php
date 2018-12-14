@@ -49,6 +49,7 @@ function add ($link, $values){
     foreach ($arr as & $value)
         $value =mysqli_real_escape_string($link, $value);
     return implode(",", $value);
+}
 
 /* $new_title          = mysqli_real_escape_string($link, $title);
   $new_description    = mysqli_real_escape_string($link, $description);
