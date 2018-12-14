@@ -44,4 +44,24 @@ function fetch_data($link,$sql) {
     return mysqli_fetch_all($result, MYSQLI_ASSOC );
 }
 
+
+function add ($link, $values){
+    foreach ($arr as & $value)
+        $value =mysqli_real_escape_string($link, $value);
+    return implode(",", $value);
+
+/* $new_title          = mysqli_real_escape_string($link, $title);
+  $new_description    = mysqli_real_escape_string($link, $description);
+  $new_starting_price = mysqli_real_escape_string($link, $starting_price);
+  $new_date_end       = mysqli_real_escape_string($link, $date_end);
+  $newd_bed_step      = mysqli_real_escape_string($link, $bed_step);
+  $new_user_id        = mysqli_real_escape_string($link, $user_id);
+  
+  $sql = "INSERT INTO lots (`category_id`, `user_id`, `winner_id`, `dt_add`, `title`, `img_path`, `description`, `starting_price`, `expiration_dt`,`bet_step`)
+   VALUES ('$category', '$new_user_id', '0', 'NOW()', '$new_title', '$image', '$new_description', '$new_starting_price', '$new_date_end','$newd_bed_step')"
+
+  $res = mysqli_query($link, $sql);
+  return $res;
+}
+
 ?>
