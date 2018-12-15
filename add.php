@@ -13,15 +13,6 @@ $page_content = include_template("add-lot.php", [
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lot'])) {
     $lot      = $_POST['lot'];
     $required = ["title", "description", "starting_price", "bed_step", "category", "date_end"];
-    $dict     = [
-        "title"          =>'Название',
-        "description"    => 'Описание', 
-        "img_path"       => 'Изображение',
-        "starting_price" =>'Начальная цена', 
-        "bed_step"       => 'Шаг ставки',
-        "category"       => 'Категория',
-        "date_end"       => 'Дата окончания торгов'
-    ];
     $errors = [];
     foreach ($required as $key) {
         if (empty($lot[$key])) {
@@ -65,18 +56,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lot'])) {
         $page_content = include_template("add-lot.php", [
             "lot"       => $lot,
             "errors"     => $errors,
-            "dict"       => $dict,
             "categories" => $categories
         ]);
     } else {
-        $sql = "INSERT INTO lots (`category_id`, `user_id`, `winner_id`, `dt_add`, `title`, `img_path`, `description`,`starting_price`, `expiration_dt`,`bet_step`)
+        $newlot_data = [
+            $lot['category'],
+            $lot['title'],
+            $lot['img_path'],
+            $lot['description'],
+            $lot['starting_price'], 
+            $lot['date_end'],
+            $lot['bed_step']
+        ];
+        $sql  = "INSERT INTO lots (`category_id`, `user_id`, `winner_id`, `dt_add`, `title`, `img_path`, `description`,`starting_price`, `expiration_dt`,`bet_step`)
             VALUES (?, 1, 0, NOW(), ?, ?, ?, ?, ?, ?);";
-        $stmt = db_get_prepare_stmt($link, $sql,[$lot['category'], $lot['title'], $lot['img_path'], $lot['description'], $lot['starting_price'], $lot['date_end'],$lot['bed_step']]);
-        $res = mysqli_stmt_execute($stmt);
+        $stmt = db_get_prepare_stmt($link, $sql,$newlot_data);
+        $res  = mysqli_stmt_execute($stmt);
         if ($res) {
             $lot_id = mysqli_insert_id($link);
             header('Location: lot.php?id=' . $lot_id);
-            exit();
         } else {
             $page_content = include_template('error.php', ['error' => mysqli_error($link)]);
         }
