@@ -1,11 +1,15 @@
 <?php
 require_once "functions.php";
 require_once "init.php";
-$is_auth     = rand(0, 1);
-$user_name   = "Marya";
-$user_avatar = "img/user.jpg";
+$is_auth      = rand(0, 1);
+$user_name    = "Marya";
+$user_avatar  = "img/user.jpg";
 
 $categories   = fetch_data($link, "SELECT `id`, `name` FROM categories");
+
+$page_content = include_template("add-lot.php", [
+        "categories" => $categories,
+    ]);
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lot'])) {
     $lot      = $_POST['lot'];
     $required = ["title", "description", "starting_price", "bed_step", "category", "date_end"];
@@ -56,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lot'])) {
     } else {
         $errors["img_path"] = 'Вы не загрузили файл';
     }
-
+    
     if (count($errors)) {
         $page_content = include_template("add-lot.php", [
             "lot"       => $lot,
@@ -67,9 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lot'])) {
     } else {
         $sql = "INSERT INTO lots (`category_id`, `user_id`, `winner_id`, `dt_add`, `title`, `img_path`, `description`,`starting_price`, `expiration_dt`,`bet_step`)
             VALUES (?, 1, 0, NOW(), ?, ?, ?, ?, ?, ?);";
-
         $stmt = db_get_prepare_stmt($link, $sql,[$lot['category'], $lot['title'], $lot['img_path'], $lot['description'], $lot['starting_price'], $lot['date_end'],$lot['bed_step']]);
-
         $res = mysqli_stmt_execute($stmt);
         if ($res) {
             $lot_id = mysqli_insert_id($link);
@@ -79,11 +81,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lot'])) {
             $page_content = include_template('error.php', ['error' => mysqli_error($link)]);
         }
     }
-} else {
-    $page_content = include_template("add-lot.php", [
-        "categories" => $categories,
-    ]);
-}    
+}
+
 $layout_content = include_template('layout.php', [
    "title"      => 'Yeticave - Главная',
    "is_auth"    => $is_auth,
