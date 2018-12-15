@@ -86,4 +86,8 @@ function db_get_prepare_stmt($link, $sql, $data = []) {
 
     return $stmt;
 }
+
+function isFormError($errors, $key) {
+  return isset($errors[$key]) ? true : false;
+}
 ?>
