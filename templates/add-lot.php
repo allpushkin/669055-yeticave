@@ -1,5 +1,5 @@
 <?php 
-$lot_title        = $lot['title'] ?? '';
+$lot_title      = $lot['title'] ?? '';
 $lot_desc       = $lot['description'] ?? '';
 $lot_img        = $lot['img_path'] ?? '';
 $lot_price      = $lot['starting_price'] ?? '';
@@ -48,7 +48,7 @@ $classname      = isset($errors) ? " form--invalid" : "";
       </div>
     </div>
     <div class="form__input-file ">
-      <input class="visually-hidden" type="file" name="img_path" id="photo2" value=$lot_img>
+      <input class="visually-hidden" type="file" name="img_path" id="photo2" value="<?=$lot_img;?>">
       <label for="photo2">
         <span>+ Добавить</span>
       </label>

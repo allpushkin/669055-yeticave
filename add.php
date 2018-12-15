@@ -43,8 +43,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lot'])) {
         if ($file_type !== "image/jpeg" && $file_type !== "image/png" && $file_type !== "image/jpg")  {
             $errors["img_path"] = 'Загрузите картинку в формате jpg/jpeg или png';
         } else {
-            move_uploaded_file($tmp_name, "img/" . $path);
-            $lot["img_path"] = "img/" . $path;
+            if (!count($errors)) {
+                move_uploaded_file($tmp_name, "img/" . $path);
+                $lot["img_path"] = "img/" . $path;
+            }
         }
     } else {
         $errors["img_path"] = 'Вы не загрузили файл';
