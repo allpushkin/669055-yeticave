@@ -7,25 +7,24 @@ $user_avatar  = "img/user.jpg";
 
 $categories   = fetch_data($link, "SELECT `id`, `name` FROM categories");
 
-$page_content = include_template("add-lot.php", [
-        "categories" => $categories,
-    ]);
+$page_content = include_template("add-lot.php", ["categories" => $categories,]);
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lot'])) {
     $lot      = $_POST['lot'];
     $required = ["title", "description", "starting_price", "bed_step", "category", "date_end"];
-    $errors = [];
+    $errors   = [];
     foreach ($required as $key) {
         if (empty($lot[$key])) {
             $errors[$key] = 'Это поле надо заполнить';
         }
     }
 
-     if (!is_numeric($lot['starting_price']) || $lot['starting_price'] <= 0) {
+    if (!is_numeric($lot['starting_price']) || $lot['starting_price'] <= 0) {
         $errors['starting_price'] = 'В поле должно быть целое положительное число';
     }
-    
+
     if (!is_numeric($lot['bed_step']) || $lot['bed_step'] <= 0) {
-        $errors['bed_step'] = 'В поле  должно быть целое положительное число';
+        $errors['bed_step'] = 'В поле должно быть целое положительное число';
     }
 
     if ($lot['category'] == 'Выберите категорию') {
@@ -44,7 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lot'])) {
         if ($file_type !== "image/jpeg" && $file_type !== "image/png" && $file_type !== "image/jpg")  {
             $errors["img_path"] = 'Загрузите картинку в формате jpg/jpeg или png';
         } else {
-            
             move_uploaded_file($tmp_name, "img/" . $path);
             $lot["img_path"] = "img/" . $path;
         }
