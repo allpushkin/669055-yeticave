@@ -28,7 +28,7 @@ $classname     = isset($errors) ? " form--invalid" : "";?>
 
   <div class="form__item <?= isFormError($errors, 'message') ?'form__item--invalid' : ''; ?>">
     <label for="message">Контактные данные*</label>
-    <textarea id="message" name="user[message]" placeholder="Напишите как с вами связаться" value="<?=$user_message;?>"></textarea>
+    <textarea id="message" name="user[message]" placeholder="Напишите как с вами связаться"><?=$user_message;?></textarea>
     <span class="form__error"><?= isFormError($errors, 'message') ? $errors['message'] : ''; ?></span>
   </div>
 
