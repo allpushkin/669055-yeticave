@@ -1,4 +1,4 @@
- <?php
+<?php
 function include_template($name, $data) {
     $name   = 'templates/' . $name;
     $result = '';
@@ -44,4 +44,50 @@ function fetch_data($link,$sql) {
     return mysqli_fetch_all($result, MYSQLI_ASSOC );
 }
 
+
+function add ($link, $lot){
+    foreach ($lot as & $add_lot) {
+        $add_lot =mysqli_real_escape_string($link, $add_lot);
+    }
+    return implode("', '", $lot);
+}
+
+function db_get_prepare_stmt($link, $sql, $data = []) {
+    $stmt = mysqli_prepare($link, $sql);
+
+    if ($data) {
+        $types = '';
+        $stmt_data = [];
+
+        foreach ($data as $value) {
+            $type = null;
+
+            if (is_int($value)) {
+                $type = 'i';
+            }
+            else if (is_string($value)) {
+                $type = 's';
+            }
+            else if (is_double($value)) {
+                $type = 'd';
+            }
+
+            if ($type) {
+                $types .= $type;
+                $stmt_data[] = $value;
+            }
+        }
+
+        $values = array_merge([$stmt, $types], $stmt_data);
+
+        $func = 'mysqli_stmt_bind_param';
+        $func(...$values);
+    }
+
+    return $stmt;
+}
+
+function isFormError($errors, $key) {
+  return isset($errors[$key]) ? true : false;
+}
 ?>
