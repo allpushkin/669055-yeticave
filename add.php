@@ -1,15 +1,17 @@
 <?php
 require_once "functions.php";
 require_once "init.php";
-$is_auth      = rand(0, 1);
-$user_name    = "Marya";
-$user_avatar  = "img/user.jpg";
 
 $categories   = fetch_data($link, "SELECT `id`, `name` FROM categories");
 
 $page_content = include_template("add-lot.php", ["categories" => $categories,]);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lot'])) {
+session_start();
+
+if (!$_SESSION['user']) {
+    http_response_code(403);
+    $page_content = include_template('403.php', ['categories' => $categories]);
+} else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lot'])) {
     $lot      = $_POST['lot'];
     $required = ["title", "description", "starting_price", "bed_step", "category", "date_end"];
     $errors   = [];
@@ -83,8 +85,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lot'])) {
 
 $layout_content = include_template('layout.php', [
    "title"      => 'Yeticave - Главная',
-   "is_auth"    => $is_auth,
-   "user_name"  => $user_name,
    "content"    => $page_content,
    "categories" => $categories
 ]);
