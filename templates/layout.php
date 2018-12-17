@@ -22,8 +22,8 @@
         <a class="main-header__add-lot button" href="add.php">Добавить лот</a>
         <nav class="user-menu">
             <div class="user-menu__image">
-                <?php $avatar_url= $_SESSION['user']['avatar_url'] ?? 'img/user.jpg';?>
-                <img src="img/user.jpg" width="40" height="40" alt="Пользователь">
+                <?php $avatar_url= $_SESSION['user']['avatar_path'] ?? 'img/avatar.jpg';?>
+                <img src="<?=$avatar_url;?>" width="40" height="40" alt="Пользователь">
             </div>
             <div class="user-menu__logged">
               <p><?= esc($_SESSION['user']['name'])?></p>
