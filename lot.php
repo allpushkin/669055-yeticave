@@ -2,11 +2,9 @@
 require_once "functions.php";
 require_once "init.php";
 
-$is_auth     = rand(0, 1);
-$user_name   = "Marya";
-$user_avatar = "img/user.jpg";
-
 $categories = fetch_data($link, "SELECT `id`, `name` FROM categories");
+
+session_start();
 
 if (isset($_GET['id'])) {
     $lot_id = mysqli_real_escape_string($link, $_GET['id']);
@@ -36,8 +34,6 @@ if(!isset($lots[0]['id'])) {
 
 $layout_content = include_template('layout.php', [
     "title"      => 'Yeticave - Главная',
-    "is_auth"    => $is_auth,
-    "user_name"  => $user_name,
     "content"    => $page_content,
     "categories" => $categories
 ]);

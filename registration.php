@@ -1,9 +1,7 @@
 <?php
 require_once "functions.php";
 require_once "init.php";
-$is_auth      = rand(0, 1);
-$user_name    = "Marya";
-$user_avatar  = "img/user.jpg";
+
 $categories   = fetch_data($link, "SELECT `id`, `name` FROM categories");
 
 $page_content = include_template("sign-up.php", ["categories" => $categories,]);
@@ -47,7 +45,7 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user'])) {
             }
         }
     } else {
-        $user['avatar'] = null;
+        $user['avatar'] = "NULL";
     }
 
     if (count($errors)) {
@@ -80,8 +78,6 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user'])) {
 
 $layout_content = include_template('layout.php', [
    "title"      => 'Yeticave - Главная',
-   "is_auth"    => $is_auth,
-   "user_name"  => $user_name,
    "content"    => $page_content,
    "categories" => $categories
 ]);

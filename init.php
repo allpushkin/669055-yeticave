@@ -9,8 +9,6 @@ if (!$link) {
     $content = include_template('error.php', ["error" => $error]);
     $layout_content = include_template('layout.php', [
        "title"      => 'Yeticave - Главная',
-       "is_auth"    => $is_auth,
-       "user_name"  => $user_name,
        "content"    => $content,
        "categories" => []
     ]);
