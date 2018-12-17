@@ -1,7 +1,7 @@
 <?php
 $login_email    = $login['email'] ?? '';
 $login_password = $login['password'] ?? '';
-$classname = count($errors) ? 'form--invalid' : '';?>
+$classname = empty($errors) ? 'form--invalid' : '';?>
 <form class="form container <?=$classname?>" action="login.php" method="post" enctype="multipart/form-data"> <!-- form--invalid -->
   <h2>Вход</h2>
   <div class="form__item <?=isFormError($errors, 'email') ?'form__item--invalid' : '';?>"> <!-- form__item--invalid -->
