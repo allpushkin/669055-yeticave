@@ -53,9 +53,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
      if (empty($error)) {
         $sql  = "INSERT INTO bets (`dt_add`, `price`, `user_id`, `lot_id`)
                  VALUES (NOW(), ?, ?, ?);";
-        $bet_data =[
-            $bet,
-            $user_id,
+        $bet_data =[ 
+            $bet, 
+            $user_id, 
             $lot_id
         ];
         $stmt = db_get_prepare_stmt($link, $sql,$bet_data);

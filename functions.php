@@ -30,7 +30,17 @@ function esc ($arg){
     return htmlspecialchars($arg);
 }
 
-function lotTimeLeft($data) { 
+function lot_time_left() { 
+    $now      = date_create("now");
+    $tomorrow = date_create("tomorrow");
+
+    $diff     = date_diff($now, $tomorrow);
+    return date_interval_format($diff,"%H:%I");
+} 
+
+
+
+function lotTimeLeft($data) {
     $now      = date_create("now"); 
     $data     = date_create($data);
 
@@ -38,10 +48,20 @@ function lotTimeLeft($data) {
     return ($diff->days * 24) + $diff->h . ":" . $diff->i ;
 } 
 
+
+
 function fetch_data($link,$sql) {
     $result = mysqli_query ($link, $sql);
 
     return mysqli_fetch_all($result, MYSQLI_ASSOC );
+}
+
+
+function add ($link, $lot){
+    foreach ($lot as & $add_lot) {
+        $add_lot =mysqli_real_escape_string($link, $add_lot);
+    }
+    return implode("', '", $lot);
 }
 
 function db_get_prepare_stmt($link, $sql, $data = []) {
@@ -84,7 +104,8 @@ function isFormError($errors, $key) {
 }
 
 function time_passed($date) {
-    $interval = strtotime('now') - strtotime($date);
+    $time     = strtotime('now');
+    $interval = $time - strtotime($date);
     if ($interval > 86400) {
         return date('d.m.Y в H:i', strtotime($date));
     }
@@ -95,9 +116,9 @@ function time_passed($date) {
         return floor($interval / 60) . ' минут назад';
     }
 
-    return 'меньше минуты назад';
+        return 'меньше минуты назад';
+
 }
 
 
 ?>
-
