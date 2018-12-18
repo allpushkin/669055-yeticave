@@ -28,7 +28,7 @@
                                 <span class="lot__cost"><?= format_sum(esc($lot["starting_price"])) ?></span>
                             </div>
                             <div class="lot__timer timer">
-                                <?= lot_time_left(); ?>
+                                <?= lotTimeLeft($lot["expiration_dt"]); ?>
                             </div>
                         </div>
                     </div>
