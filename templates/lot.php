@@ -46,14 +46,14 @@
       </div>
       <?php endif;?>
       <div class="history">
-        <h3>История ставок (<?=count($lot_bid);?>)</h3>
+        <h3>История ставок (<?=count($bets);?>)</h3>
         <table class="history__list">
-          <?php if (count($lot_bid)):?>
-            <?php foreach ($lot_bid as $key):?>
+          <?php if (count($bets)):?>
+            <?php foreach ($bets as $key):?>
               <tr class="history__item">
                   <td class="history__name"><?=$key['name']?></td>
                   <td class="history__price"><?=format_sum($key['price'])?></td>
-                  <td class="history__time"><?=time_of_bet($key['dt_add']);?></td>
+                  <td class="history__time"><?=time_passed($key['dt_add']);?></td>
               </tr>
            <?php endforeach;?>
          <?php endif;?>

@@ -25,21 +25,19 @@ ON l.id = b.lot_id
 INNER JOIN categories c
 ON l.category_id = c.id
 WHERE l.id = $lot_id");
+$lot = $lots[0];
 
-
-$bets = fetch_data($link, "SELECT `dt_add`, `price`, `user_id`, `lot_id` FROM bets");
-
-if (strtotime($lots[0]['expiration_dt']) < strtotime('now')) {
+if (strtotime($lot['expiration_dt']) < strtotime('now')) {
     $expiration_dt = true;
 }
 
-if ($lots[0]['price']) {
-    $current_price = $lots[0]['price'];
+if ($lot['price']) {
+    $current_price = $lot['price'];
 } else {
-    $current_price = $lots[0]['starting_price'];
+    $current_price = $lot['starting_price'];
 }
 
-$min_bet = $current_price + $lots[0]['bet_step'];
+$min_bet = $current_price + $lot['bet_step'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $bet   = $_POST['price'];
@@ -55,9 +53,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
      if (empty($error)) {
         $sql  = "INSERT INTO bets (`dt_add`, `price`, `user_id`, `lot_id`)
                  VALUES (NOW(), ?, ?, ?);";
-        $bet_data =[ 
-            $bet, 
-            $user_id, 
+        $bet_data =[
+            $bet,
+            $user_id,
             $lot_id
         ];
         $stmt = db_get_prepare_stmt($link, $sql,$bet_data);
@@ -69,8 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-
-$lot_bid =  fetch_data($link, "SELECT b.id, title, b.dt_add,name, price FROM bets b
+$bets = fetch_data($link, "SELECT b.id, title, b.dt_add,name, price FROM bets b
 LEFT JOIN lots l
 ON l.id = b.lot_id
 INNER JOIN users u
@@ -78,18 +75,18 @@ ON l.user_id = u.id
 WHERE b.lot_id = $lot_id
 ORDER BY `dt_add` DESC;");
 
-if(!isset($lots[0]['id'])) {
+if(!isset($lot['id'])) {
     http_response_code(404);
     $page_content = include_template('404.php', ['categories' => $categories]);
 } else {
     $page_content = include_template('lot.php', [
         "expiration_dt"  => $expiration_dt,
         "min_bet"        => $min_bet,
-        "lot"            => $lots[0],
+        "lot"            => $lot,
         "categories"     => $categories,
         "error"          => $error,
         "user_id"        => $user_id,
-        "lot_bid"        => $lot_bid
+        "bets"           => $bets
 ]);
 }
 
