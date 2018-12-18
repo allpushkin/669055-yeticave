@@ -6,7 +6,7 @@ session_start();
 
 $categories = fetch_data($link, "SELECT `id`, `name` FROM categories");
 
-$lots = fetch_data($link,"SELECT l.id, l.title, starting_price, img_path, name FROM lots l
+$lots = fetch_data($link,"SELECT l.id, l.title, starting_price, expiration_dt, img_path, name FROM lots l
 INNER JOIN categories c
 ON l.category_id = c.id
 ORDER BY l.dt_add DESC");
