@@ -16,6 +16,7 @@ function include_template($name, $data) {
     return $result;
 }
 
+
 function format_sum($sum){
     $sum = ceil($sum);
     if ($sum >= 1000) {
@@ -29,6 +30,7 @@ function format_sum($sum){
 function esc ($arg){
     return htmlspecialchars($arg);
 }
+
 
 function lot_time_left() { 
     $now      = date_create("now");
@@ -70,6 +72,7 @@ function add ($link, $lot){
     return implode("', '", $lot);
 }
 
+
 function db_get_prepare_stmt($link, $sql, $data = []) {
     $stmt = mysqli_prepare($link, $sql);
 
@@ -105,27 +108,28 @@ function db_get_prepare_stmt($link, $sql, $data = []) {
     return $stmt;
 }
 
+
 function isFormError($errors, $key) {
   return isset($errors[$key]) ? true : false;
 }
 
-function time_of_bet($dt_add) {
-    $time     = strtotime('now');
-    $interval = $time - strtotime($dt_add);
+
+function time_passed($date) {
+    $interval = strtotime('now') - strtotime($date);
     if ($interval > 86400) {
-        $add_time = date('d.m.Y в H:i', strtotime($dt_add));
+        return date('d.m.Y в H:i', strtotime($date));
     }
-    else if ($interval > 3600 && $interval < 86400) {
-        $add_time = floor($interval / 3600) . ' часов назад';
+    if ($interval > 3600 && $interval < 86400) {
+        return floor($interval / 3600) . ' часов назад';
     }
-    else if ($interval > 60 && $interval < 3600) {
-        $add_time = floor($interval / 60) . ' минут назад';
+    if ($interval > 60 && $interval < 3600) {
+        return floor($interval / 60) . ' минут назад';
     }
     else {
-        $add_time = 'меньше минуты назад';
+        return 'меньше минуты назад';
     }
-    return $add_time;
 }
+
 
 
 ?>
