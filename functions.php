@@ -38,6 +38,24 @@ function lot_time_left() {
     return date_interval_format($diff,"%H:%I");
 } 
 
+
+
+function lotTimeLeft($expiration_dt) {
+    $time_left = strtotime($expiration_dt) - time();
+    $hours     = floor($time_left / 3600);
+    $minutes   = floor(($time_left % 3600) / 60);
+    if ($minutes < 10) {
+        $minutes = 0 . $minutes;
+    }
+    if ($hours < 10) {
+        $hours = 0 . $hours;
+    }
+    $time_left = $hours . ':' . $minutes;
+    return $time_left;
+}
+
+
+
 function fetch_data($link,$sql) {
     $result = mysqli_query ($link, $sql);
 
@@ -90,4 +108,24 @@ function db_get_prepare_stmt($link, $sql, $data = []) {
 function isFormError($errors, $key) {
   return isset($errors[$key]) ? true : false;
 }
+
+function time_of_bet($dt_add) {
+    $time     = strtotime('now');
+    $interval = $time - strtotime($dt_add);
+    if ($interval > 86400) {
+        $add_time = date('d.m.Y в H:i', strtotime($dt_add));
+    }
+    else if ($interval > 3600 && $interval < 86400) {
+        $add_time = floor($interval / 3600) . ' часов назад';
+    }
+    else if ($interval > 60 && $interval < 3600) {
+        $add_time = floor($interval / 60) . ' минут назад';
+    }
+    else {
+        $add_time = 'меньше минуты назад';
+    }
+    return $add_time;
+}
+
+
 ?>
